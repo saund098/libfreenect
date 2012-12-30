@@ -129,11 +129,11 @@ static inline int32_t fn_le32s(int32_t s)
 #define VIDEO_PKTDSIZE (VIDEO_PKTSIZE-12)
 
 #define VID_MICROSOFT 0x45e
-#define PID_NUI_AUDIO 0x02ad
-#define PID_NUI_CAMERA 0x02ae
+#define PID_NUI_AUDIO 0xDEAD //0x02ad
+#define PID_NUI_CAMERA 0xBEEF //0x02ae
 #define PID_NUI_MOTOR 0x02b0
-#define PID_K4W_CAMERA 0x02bf
-#define PID_K4W_AUDIO 0x02be
+#define PID_K4W_CAMERA 0x02ae //0x02bf
+#define PID_K4W_AUDIO 0x02ad //0x02be
 
 typedef enum {
 	HWREV_XBOX360_0 = 0,

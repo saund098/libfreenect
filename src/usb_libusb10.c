@@ -221,6 +221,7 @@ FN_INTERNAL int fnusb_open_subdevices(freenect_device *dev, int index)
 					dev->usb_cam.dev = NULL;
 					break;
 				}
+                                dev->hwrev = HWREV_XBOX360_0;
 				if (desc.idProduct == PID_NUI_CAMERA) {
 					dev->hwrev = HWREV_XBOX360_0;
 					FN_SPEW("Opened Kinect for Xbox360 camera\n");
@@ -228,6 +229,7 @@ FN_INTERNAL int fnusb_open_subdevices(freenect_device *dev, int index)
 					dev->hwrev = HWREV_K4W_0;
 					FN_SPEW("Opened Kinect for Windows camera\n");
 					// Set alternate interface setting 1 to enable the two isochronous endpoints
+/*
 					res = libusb_set_interface_alt_setting(dev->usb_cam.dev, 0, 1);
 					if (res != 0) {
 						FN_ERROR("Failed to set alternate interface #1 for K4W: %d\n", res);
@@ -235,6 +237,7 @@ FN_INTERNAL int fnusb_open_subdevices(freenect_device *dev, int index)
 						dev->usb_cam.dev = NULL;
 						break;
 					}
+*/
 				} else {
 					FN_ERROR("Unknown hardware revision - fix fnusb_open_subdevices()\n");
 				}
@@ -385,7 +388,9 @@ FN_INTERNAL int fnusb_open_subdevices(freenect_device *dev, int index)
 
 	// Check that each subdevice is either opened or not enabled.
 	if ( (dev->usb_cam.dev || !(ctx->enabled_subdevices & FREENECT_DEVICE_CAMERA))
+#ifdef BUILD_MOTOR
 		&& (dev->usb_motor.dev || !(ctx->enabled_subdevices & FREENECT_DEVICE_MOTOR))
+#endif
 #ifdef BUILD_AUDIO
 		&& (dev->usb_audio.dev || !(ctx->enabled_subdevices & FREENECT_DEVICE_AUDIO))
 #endif
